@@ -1,0 +1,192 @@
+** ödev 1 **
+
+1) select title,description from film
+
+2) select * from film
+where length > 60 and length < 75
+
+3) select * from film
+where rental_rate = 0.99 and replacement_cost = 12.99
+or replacement_cost = 28.99
+
+4) select last_name from customer 
+where first_name = 'Mary'
+
+5) select * from film 
+where (not length > 50) and (not (rental_rate = 2.99 or rental_rate = 4.99)) 
+
+
+*** ödev 2 **
+
+1) select * from film 
+where replacement_cost between 12.99 and 16.99;
+
+2) select first_name,last_name from actor 
+where first_name in ('Penelope','Nick','Ed');
+
+3) select * from film
+where rental_rate in (0.99,2.99,4.99)
+and replacement_cost in (12.99,15.99,28.99);
+
+** ödev 3 **
+
+1) select country from country 
+where country like 'A%a';
+
+2) select country from country 
+where country like '_____%n'
+
+3) select * from film 
+where title ilike '%t%t%t%t%';
+
+4) select * from film 
+where title like 'C%' and length>90 and rental_rate = 2.99;
+
+
+** ödev 4 **
+
+1) select distinct replacement_cost from film
+
+2) select count(distinct replacement_cost) from film
+
+3) select count(*) from film
+where title like 'T%' and rating = 'G'
+
+4) select count(*) from country 
+where country like '_____'
+
+5) select count(*) from city
+where city ilike '%r'
+
+** ödev 5 **
+
+1) select  * from film
+where title like '%n'
+order by length desc
+limit 5;
+
+2) select  * from film
+where title like '%n'
+order by length asc
+offset 5
+limit 5;
+
+3) select  * from customer 
+where store_id = 1
+order by last_name desc
+limit 4;
+
+** ödev 6 **
+
+1) select  avg(rental_rate) from film
+
+2) select  count(*) from film
+where title like 'C%'
+
+3) select  max(length) from film
+where rental_rate = 0.99 
+
+4) select count(distinct replacement_cost) 
+from film
+where length > 150
+
+** ödev 7 **
+
+1) select rating, count(*) from film
+group by rating;
+
+2) select replacement_cost, count(*) from film
+group by replacement_cost
+having count(*) > 50
+order by replacement_cost;
+
+3) select store_id, count(*) from customer
+group by store_id;
+
+4) select country_id, count(*)from city
+group by country_id
+order by count(*) desc
+limit 1;
+
+** ödev 8 **
+
+1) create table employee(
+ id serial primary key,
+	name varchar(50),
+	birthday date,
+	email varchar(100)
+);
+
+2)
+
+3) update employee
+set name = 'updated'
+where id = 11;
+   update employee
+set email = 'updated@gmail.com'
+where name = 'Vi';
+   update employee
+set birthday = '1999-01-01'
+where id = 15;
+
+4) delete from employee
+where id = 11;
+   delete from employee
+where name = 'Vi';
+   delete from employee
+where email = 'chorley2@illinois.edu';
+
+
+** ödev 9 **
+
+1) select * from city
+inner join country on city.country_id = country.country_id;
+
+2) select payment_id, first_name, last_name from customer
+inner join payment on payment.customer_id = customer.customer_id;
+
+3) select rental_id, first_name, last_name from customer
+inner join rental on rental.customer_id = customer.customer_id;
+
+** ödev 10 **
+
+1) select city,country from city
+left join country on city.country_id = country.country_id ;
+
+2) select payment_id, first_name, last_name from customer
+right join payment on customer.customer_id = payment.customer_id;
+
+3) select rental_id, first_name, last_name from customer
+full join rental on customer.customer_id = rental.customer_id
+
+** ödev 11 **
+
+1) (select first_name from actor)
+ union
+ (select first_name from customer)
+
+2) (select first_name from actor)
+ intersect
+ (select first_name from customer)
+
+3) (select first_name from actor)
+ except
+ (select first_name from customer)
+
+** ödev 12 **
+
+1) select count(*) from film
+where length > (select avg(length) from film)
+
+2) select count(*) from film
+where rental_rate = (select max(rental_rate) from film)
+
+3) select count(*) from film
+where rental_rate = (select min(rental_rate) from film)
+and replacement_cost = (select min(replacement_cost) from film)
+
+4) select customer_id,count(*) from payment
+group by customer_id 
+order by customer_id;
+
+
